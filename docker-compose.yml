@@ -1,0 +1,39 @@
+networks:
+  vue:
+
+services:
+  vue-ui:
+    build:
+      context: ./vue-app
+    ports:
+      - "8200:5173"
+    stdin_open: true
+    volumes:
+      - './vue-app:/app'
+    networks:
+      - vue
+    entrypoint: [ "sh", "-c" ]
+    command: [ "npm install && npm run dev" ]
+
+  backend:
+    build:
+      context: ./vue-app
+      dockerfile: dockerfile-backend
+    ports:
+      - "3001:3000"
+    stdin_open: true
+    volumes:
+      - './vue-app:/app'
+    networks:
+      - vue
+    depends_on:
+      - vue-ui
+    entrypoint: [ "sh", "-c" ]
+    command: [ "npm run backend" ]
+  
+  npm:
+    image: node:current-alpine 
+    volumes:
+      - ./vue-app:/app
+    working_dir: /app
+    entrypoint: [ 'npm' ]
