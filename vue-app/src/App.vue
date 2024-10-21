@@ -1,57 +1,29 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <main>
+  <div>
+    <Navbar :logo="logo_src" :alt="app_name" />
     <RouterView />
-  </main>
+    <Footer />
+  </div>
 </template>
 
-<style scoped>
-* {
-  margin: 0;
-  padding: 0;
-}
+<script>
+  import Navbar from './components/Navbar.vue';
+  import Footer from './components/Footer.vue';
 
-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
-}
+  export default {
+    components: {
+      Navbar,
+      Footer 
+    },
+    data() {
+      return {
+        logo_src: "/img/logo.png",
+        app_name: "Make your burger"
+      }
+    }
+  }
+</script>
 
-.wrapper {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-nav {
-  display: flex;
-  gap: 20px;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  width: 100%;
-}
+<style>
 
 </style>
